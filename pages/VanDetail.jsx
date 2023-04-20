@@ -1,7 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 
-export default function VanDetail() {
+const VanDetail = () => {
   const params = useParams();
   const [van, setVan] = React.useState(null);
 
@@ -29,4 +29,6 @@ export default function VanDetail() {
       )}
     </div>
   );
-}
+};
+
+export default VanDetail;

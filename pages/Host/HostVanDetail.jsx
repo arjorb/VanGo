@@ -17,7 +17,7 @@ const HostVanDetail = () => {
   const activeStyle = {
     fontWeight: "bold",
     textDecoration: "underline",
-    color: "#161616",
+    color: "#161615",
   };
   return (
     <section>

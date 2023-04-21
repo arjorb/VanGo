@@ -1,11 +1,11 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import { useParams, Link, NavLink, Outlet } from "react-router-dom";
 
 const HostVanDetail = () => {
   const { id } = useParams();
-  const [currentVan, setCurrentVan] = React.useState(null);
+  const [currentVan, setCurrentVan] = useState(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
     fetch(`/api/host/vans/${id}`)
       .then((res) => res.json())
       .then((data) => setCurrentVan(data.vans));

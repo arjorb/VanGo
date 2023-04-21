@@ -34,7 +34,6 @@ header {
 header .site-logo {
     color: black;
     margin-right: auto;
-    text-transform: uppercase;
     font-weight: 900;
     font-size: 25px;
 }

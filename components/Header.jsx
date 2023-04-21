@@ -9,7 +9,7 @@ const Header = () => {
   return (
     <header>
       <Link className="site-logo" to="/">
-        #VanLife
+        VanGo
       </Link>
       <nav>
         <NavLink to="/host" style={({ isActive }) => (isActive ? activeStyle : null)}>

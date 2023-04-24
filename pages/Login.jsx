@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate, useLoaderData, redirect, Form } from "react-router-dom";
+import { useNavigate, useLoaderData, redirect, Form, useActionData } from "react-router-dom";
 import { loginUser } from "../api";
 
 export function loader({ request }) {
@@ -10,14 +10,18 @@ export async function action({ request }) {
   const formData = await request.formData();
   const email = formData.get("email");
   const password = formData.get("password");
-  const data = await loginUser({ email, password });
-  localStorage.setItem("loggedin", true);
-  return redirect("/host");
+  try {
+    const data = await loginUser({ email, password });
+    localStorage.setItem("loggedin", true);
+    return redirect("/host");
+  } catch (err) {
+    return err.message;
+  }
 }
 
 const Login = () => {
   const [status, setStatus] = useState("idle");
-  const [error, setError] = useState(null);
+  const errorMessage = useActionData();
   const navigate = useNavigate();
 
   const message = useLoaderData();
@@ -36,7 +40,7 @@ const Login = () => {
     <div className="login-container">
       <h1>Sign in to your account</h1>
       {message && <h3 className="red">{message}</h3>}
-      {error && <h3 className="red">{error.message}</h3>}
+      {errorMessage && <h3 className="red">{errorMessage}</h3>}
       <Form method="post" className="login-form" replace>
         <input name="email" type="email" placeholder="Email address" />
         <input name="password" type="password" placeholder="Password" />

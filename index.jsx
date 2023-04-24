@@ -12,7 +12,7 @@ import Income from "./pages/Host/Income";
 import Reviews from "./pages/Host/Reviews";
 import HostLayout from "./components/HostLayout";
 import HostVans, { loader as hostVansLoader } from "./pages/Host/HostVans";
-import HostVanDetail from "./pages/Host/HostVanDetail";
+import HostVanDetail, { loader as hostVansDetailLoader } from "./pages/Host/HostVanDetail";
 import HostVanPricing from "./pages/Host/HostVanPricing";
 import HostVanPhotos from "./pages/Host/HostVanPhotos";
 import HostVanInfo from "./pages/Host/HostVanInfo";
@@ -43,13 +43,7 @@ const router = createBrowserRouter(
           element={<Reviews />}
         />
         <Route loader={hostVansLoader} path="hostvans" element={<HostVans />} />
-        <Route
-          loader={async () => {
-            return null;
-          }}
-          path="hostvans/:id"
-          element={<HostVanDetail />}
-        >
+        <Route loader={hostVansDetailLoader} path="hostvans/:id" element={<HostVanDetail />}>
           <Route
             loader={async () => {
               return null;

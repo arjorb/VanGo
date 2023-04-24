@@ -2,6 +2,7 @@ import ReactDOM from "react-dom/client";
 import { RouterProvider, createBrowserRouter, createRoutesFromElements, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import About from "./pages/About";
+import Login, { loader as loginLoader, action as loginAction } from "./pages/Login";
 import Vans, { loader as vansLoader } from "./pages/Vans/Vans";
 import VanDetail, { loader as vanDetailLoader } from "./pages/Vans/VanDetail";
 
@@ -19,52 +20,25 @@ import HostVanInfo from "./pages/Host/HostVanInfo";
 import NotFound from "./pages/NotFound";
 import Error from "./components/Error";
 
+import { requireAuth } from "./utils";
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Layout />}>
       <Route index element={<Home />} />
       <Route path="about" element={<About />} />
+      <Route path="login" element={<Login />} loader={loginLoader} action={loginAction} />
       <Route path="vans" element={<Vans />} errorElement={<Error />} loader={vansLoader}></Route>
       <Route path="vans/:id" element={<VanDetail />} loader={vanDetailLoader} />
       <Route path="host" element={<HostLayout />}>
-        <Route index element={<Dashboard />} />
-        <Route
-          loader={async () => {
-            return null;
-          }}
-          path="income"
-          element={<Income />}
-        />
-        <Route
-          loader={async () => {
-            return null;
-          }}
-          path="reviews"
-          element={<Reviews />}
-        />
+        <Route index element={<Dashboard />} loader={async () => await requireAuth()} />
+        <Route loader={async () => await requireAuth()} path="income" element={<Income />} />
+        <Route loader={async () => await requireAuth()} path="reviews" element={<Reviews />} />
         <Route loader={hostVansLoader} path="hostvans" element={<HostVans />} />
         <Route loader={hostVansDetailLoader} path="hostvans/:id" element={<HostVanDetail />}>
-          <Route
-            loader={async () => {
-              return null;
-            }}
-            index
-            element={<HostVanInfo />}
-          />
-          <Route
-            loader={async () => {
-              return null;
-            }}
-            path="pricing"
-            element={<HostVanPricing />}
-          />
-          <Route
-            loader={async () => {
-              return null;
-            }}
-            path="photos"
-            element={<HostVanPhotos />}
-          />
+          <Route loader={async () => await requireAuth()} index element={<HostVanInfo />} />
+          <Route loader={async () => await requireAuth()} path="pricing" element={<HostVanPricing />} />
+          <Route loader={async () => await requireAuth()} path="photos" element={<HostVanPhotos />} />
         </Route>
       </Route>
       <Route path="*" element={<NotFound />} />

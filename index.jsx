@@ -28,13 +28,55 @@ const router = createBrowserRouter(
       <Route path="vans/:id" element={<VanDetail />} />
       <Route path="host" element={<HostLayout />}>
         <Route index element={<Dashboard />} />
-        <Route path="income" element={<Income />} />
-        <Route path="reviews" element={<Reviews />} />
-        <Route path="hostvans" element={<HostVans />} />
-        <Route path="hostvans/:id" element={<HostVanDetail />}>
-          <Route index element={<HostVanInfo />} />
-          <Route path="pricing" element={<HostVanPricing />} />
-          <Route path="photos" element={<HostVanPhotos />} />
+        <Route
+          loader={async () => {
+            return null;
+          }}
+          path="income"
+          element={<Income />}
+        />
+        <Route
+          loader={async () => {
+            return null;
+          }}
+          path="reviews"
+          element={<Reviews />}
+        />
+        <Route
+          loader={async () => {
+            return null;
+          }}
+          path="hostvans"
+          element={<HostVans />}
+        />
+        <Route
+          loader={async () => {
+            return null;
+          }}
+          path="hostvans/:id"
+          element={<HostVanDetail />}
+        >
+          <Route
+            loader={async () => {
+              return null;
+            }}
+            index
+            element={<HostVanInfo />}
+          />
+          <Route
+            loader={async () => {
+              return null;
+            }}
+            path="pricing"
+            element={<HostVanPricing />}
+          />
+          <Route
+            loader={async () => {
+              return null;
+            }}
+            path="photos"
+            element={<HostVanPhotos />}
+          />
         </Route>
       </Route>
       <Route path="*" element={<NotFound />} />

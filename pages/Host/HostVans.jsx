@@ -2,8 +2,9 @@ import { useState, useEffect } from "react";
 import { Link, useLoaderData } from "react-router-dom";
 import { getHostVans } from "../../api";
 import { requireAuth } from "../../utils";
-export const loader = async () => {
-  await requireAuth();
+
+export const loader = async ({ request }) => {
+  await requireAuth(request);
   return getHostVans();
 };
 

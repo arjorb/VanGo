@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate, useLoaderData, redirect, Form, useActionData } from "react-router-dom";
+import { useNavigation, useLoaderData, redirect, Form, useActionData } from "react-router-dom";
 import { loginUser } from "../api";
 
 export function loader({ request }) {
@@ -20,21 +20,9 @@ export async function action({ request }) {
 }
 
 const Login = () => {
-  const [status, setStatus] = useState("idle");
   const errorMessage = useActionData();
-  const navigate = useNavigate();
-
+  const navigation = useNavigation();
   const message = useLoaderData();
-
-  function handleSubmit(e) {
-    e.preventDefault();
-    setStatus("submitting");
-    setError(null);
-    loginUser(loginFormData)
-      .then((data) => navigate("/host", { replace: true }))
-      .catch((err) => setError(err))
-      .finally(() => setStatus("idle"));
-  }
 
   return (
     <div className="login-container">
@@ -44,7 +32,7 @@ const Login = () => {
       <Form method="post" className="login-form" replace>
         <input name="email" type="email" placeholder="Email address" />
         <input name="password" type="password" placeholder="Password" />
-        <button disabled={status === "submitting"}>{status === "submitting" ? "Logging in..." : "Log in"}</button>
+        <button disabled={navigation.state === "submitting"}>{navigation.state === "submitting" ? "Logging in..." : "Log in"}</button>
       </Form>
     </div>
   );

@@ -1,4 +1,4 @@
-import React from "react";
+import { Suspense } from "react";
 import { Link, defer, Await, useLoaderData } from "react-router-dom";
 import { getHostVans } from "../../api";
 import { requireAuth } from "../../utils";
@@ -9,7 +9,7 @@ export async function loader({ request }) {
   return defer({ vans: getHostVans() });
 }
 
-export default function Dashboard() {
+const Dashboard = () => {
   const loaderData = useLoaderData();
 
   function renderVanElements(vans) {
@@ -56,10 +56,12 @@ export default function Dashboard() {
           <h2>Your listed vans</h2>
           <Link to="vans">View all</Link>
         </div>
-        <React.Suspense fallback={<h3>Loading...</h3>}>
+        <Suspense fallback={<h3>Loading...</h3>}>
           <Await resolve={loaderData.vans}>{renderVanElements}</Await>
-        </React.Suspense>
+        </Suspense>
       </section>
     </>
   );
-}
+};
+
+export default Dashboard;

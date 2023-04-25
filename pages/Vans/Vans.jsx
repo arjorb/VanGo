@@ -8,8 +8,20 @@ export function loader() {
 
 const Vans = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const typeFilter = searchParams.get("type");
   const dataPromise = useLoaderData();
+
+  const typeFilter = searchParams.get("type");
+
+  const handleFilterChange = (key, value) => {
+    setSearchParams((prevParams) => {
+      if (value === null) {
+        prevParams.delete(key);
+      } else {
+        prevParams.set(key, value);
+      }
+      return prevParams;
+    });
+  };
 
   const renderVanElements = (vans) => {
     const displayedVans = typeFilter ? vans.filter((van) => van.type === typeFilter) : vans;
@@ -41,21 +53,21 @@ const Vans = () => {
           <button
             onClick={() => handleFilterChange("type", "simple")}
             className={`van-type simple 
-                    ${typeFilter === "simple" ? "selected" : ""}`}
+                        ${typeFilter === "simple" ? "selected" : ""}`}
           >
             Simple
           </button>
           <button
             onClick={() => handleFilterChange("type", "luxury")}
             className={`van-type luxury 
-                    ${typeFilter === "luxury" ? "selected" : ""}`}
+                        ${typeFilter === "luxury" ? "selected" : ""}`}
           >
             Luxury
           </button>
           <button
             onClick={() => handleFilterChange("type", "rugged")}
             className={`van-type rugged 
-                    ${typeFilter === "rugged" ? "selected" : ""}`}
+                        ${typeFilter === "rugged" ? "selected" : ""}`}
           >
             Rugged
           </button>
@@ -74,7 +86,7 @@ const Vans = () => {
   return (
     <div className="van-list-container">
       <h1>Explore our van options</h1>
-      <Suspense fallback={<h1>Loading...</h1>}>
+      <Suspense fallback={<h2>Loading vans...</h2>}>
         <Await resolve={dataPromise.vans}>{renderVanElements}</Await>
       </Suspense>
     </div>

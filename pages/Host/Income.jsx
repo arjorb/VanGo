@@ -1,6 +1,4 @@
-import React from "react";
-
-export default function Income() {
+const Income = () => {
   const transactionsData = [
     { amount: 720, date: "Jan 3, '23", id: "1" },
     { amount: 560, date: "Dec 12, '22", id: "2" },
@@ -30,4 +28,6 @@ export default function Income() {
       </div>
     </section>
   );
-}
+};
+
+export default Income;

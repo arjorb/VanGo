@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import { Link, useParams, useLocation, useLoaderData } from "react-router-dom";
 
-import { getVans } from "../../api";
+import { getVan } from "../../api";
 
 export const loader = ({ params }) => {
-  return getVans(params.id);
+  return getVan(params.id);
 };
 
 const VanDetail = () => {

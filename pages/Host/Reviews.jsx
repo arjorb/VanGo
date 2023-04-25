@@ -1,7 +1,6 @@
-import React from "react";
 import { BsStarFill } from "react-icons/bs";
 
-export default function Reviews() {
+const Reviews = () => {
   const reviewsData = [
     {
       rating: 5,
@@ -46,4 +45,6 @@ export default function Reviews() {
       ))}
     </section>
   );
-}
+};
+
+export default Reviews;

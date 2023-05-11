@@ -1,17 +1,17 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 const HostVans = () => {
-  const [vans, setVans] = React.useState([]);
+  const [vans, setVans] = useState([]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     fetch("/api/host/vans")
       .then((res) => res.json())
       .then((data) => setVans(data.vans));
   }, []);
 
   const hostVansEls = vans.map((van) => (
-    <Link to={`/host/hostvans/${van.id}`} key={van.id} className="host-van-link-wrapper">
+    <Link to={`${van.id}`} key={van.id} className="host-van-link-wrapper">
       <div className="host-van-single" key={van.id}>
         <img src={van.imageUrl} alt={`Photo of ${van.name}`} />
         <div className="host-van-info">

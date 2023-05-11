@@ -1,7 +1,7 @@
 const Footer = () => {
   return (
     <footer>
-      <div>&#169; 2022 #VANLIFE</div>
+      <div>&#169; {new Date().getFullYear()} #VANLIFE</div>
     </footer>
   );
 };
